@@ -402,6 +402,7 @@ def show_profile_page():
                 else:
                     st.error(f"❌ {message}")
     with history_tab:
+        
     st.subheader("Resume Ranking History")
     
     history = get_user_history(profile["email"])
@@ -417,7 +418,6 @@ def show_profile_page():
                     disabled=True,
                     key=f"job_desc_{idx}"
                 )
-                # Move JSON parsing inside the loop for each history entry
                 try:
                     results = pd.read_json(row["results"])
                     st.dataframe(results, hide_index=True)
@@ -675,3 +675,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
