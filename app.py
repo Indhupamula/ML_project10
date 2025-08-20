@@ -401,22 +401,31 @@ def show_profile_page():
                     st.success(f"✅ {message}")
                 else:
                     st.error(f"❌ {message}")
-    
     with history_tab:
-        st.subheader("Resume Ranking History")
-        
-        history = get_user_history(profile["email"])
-        if history.empty:
-            st.info("📝 No ranking history found")
-        else:
-            for idx, row in history.iterrows():
-                with st.expander(f"Job: {row['job_title']} - {row['timestamp']}"):
-                    st.text_area("Job Description", value=row["description"], height=100, disabled=True, key=f"job_desc_{idx}")
-        try:
-            results = pd.read_json(row["results"])
-            st.dataframe(results, hide_index=True)
-        except:
-            st.warning("⚠ Error loading results data")
+    st.subheader("Resume Ranking History")
+    
+    history = get_user_history(profile["email"])
+    if history.empty:
+        st.info("📝 No ranking history found")
+    else:
+        for idx, row in history.iterrows():
+            with st.expander(f"Job: {row['job_title']} - {row['timestamp']}"):
+                st.text_area(
+                    "Job Description",
+                    value=row["description"],
+                    height=100,
+                    disabled=True,
+                    key=f"job_desc_{idx}"
+                )
+                # Move JSON parsing inside the loop for each history entry
+                try:
+                    results = pd.read_json(row["results"])
+                    st.dataframe(results, hide_index=True)
+                except:
+                    st.warning("⚠ Error loading results data")
+
+    
+      
 
 
 
@@ -664,4 +673,5 @@ def main():
             show_profile_page()
 
 if __name__ == "__main__":
+
     main()
