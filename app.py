@@ -401,17 +401,16 @@ def show_profile_page():
                     st.success(f"✅ {message}")
                 else:
                     st.error(f"❌ {message}")
-    with history_tab:
-        
-    st.subheader("Resume Ranking History")
-    
-    history = get_user_history(profile["email"])
-    if history.empty:
-        st.info("📝 No ranking history found")
-    else:
-        for idx, row in history.iterrows():
-            with st.expander(f"Job: {row['job_title']} - {row['timestamp']}"):
-                st.text_area(
+   with history_tab:
+       st.subheader("Resume Ranking History")
+       
+      history = get_user_history(profile["email"])
+      if history.empty:
+          st.info("📝 No ranking history found")
+      else:
+          for idx, row in history.iterrows():
+              with st.expander(f"Job: {row['job_title']} - {row['timestamp']}"):
+                  st.text_area(
                     "Job Description",
                     value=row["description"],
                     height=100,
@@ -423,9 +422,15 @@ def show_profile_page():
                     st.dataframe(results, hide_index=True)
                 except:
                     st.warning("⚠ Error loading results data")
-
-    
+            
+                
+          
+            
       
+    
+          
+        
+
 
 
 
@@ -675,4 +680,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
